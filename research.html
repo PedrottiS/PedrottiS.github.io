@@ -1,32 +1,233 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Research | Hilbert Atrium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research — Hilbert Atrium · Polimi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=JetBrains+Mono:wght@300;400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; }
-        a { color: #005a9c; text-decoration: none; }
-        .project { border-left: 3px solid #005a9c; padding-left: 15px; margin-bottom: 20px; }
+        /* Eredità stili root e base */
+        :root {
+            --bg: #060a12; --bg2: #0c1220; --bg3: #111827;
+            --text: #d9d0be; --text-muted: #7a7060;
+            --gold: #c4973d; --gold-lt: #e8c97a;
+            --border: rgba(196,151,61,0.18);
+            --border-dim: rgba(255,255,255,0.06);
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Outfit', system-ui, sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 300; line-height: 1.6; }
+
+        /* NAV (Stessa della Home) */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.25rem 3rem; background: rgba(6,10,18,0.85); backdrop-filter: blur(14px);
+            border-bottom: 0.5px solid var(--border);
+        }
+        .nav-logo { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; color: var(--gold-lt); text-decoration: none; }
+        .nav-logo span { font-weight: 300; font-style: italic; color: var(--text); }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold-lt); }
+
+        /* HEADER SEZIONE */
+        .page-header { padding: 12rem 3rem 6rem; border-bottom: 0.5px solid var(--border-dim); }
+        .page-eyebrow { font-family: var(--mono); font-size: 0.7rem; color: var(--gold); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 1.5rem; }
+        .page-title { font-family: var(--serif); font-size: clamp(3rem, 7vw, 6rem); font-weight: 300; line-height: 1; margin-bottom: 2rem; }
+        .page-title em { font-style: italic; color: var(--gold-lt); }
+
+        /* RICERCA - GRID LAYOUT */
+        .research-container { padding: 4rem 3rem; display: grid; grid-template-columns: 280px 1fr; gap: 6rem; }
+        
+        /* FILTRI SIDEBAR */
+        .sidebar h4 { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 1.5rem; }
+        .filter-list { list-style: none; }
+        .filter-item { margin-bottom: 1rem; }
+        .filter-link { font-size: 0.9rem; color: var(--text-muted); text-decoration: none; transition: 0.2s; display: flex; justify-content: space-between; }
+        .filter-link:hover { color: var(--gold-lt); }
+        .filter-link span { font-family: var(--mono); font-size: 0.7rem; opacity: 0.5; }
+
+        /* PAPER CARDS */
+        .paper-entry { margin-bottom: 5rem; position: relative; }
+        .paper-meta { font-family: var(--mono); font-size: 0.65rem; color: var(--gold); margin-bottom: 1rem; display: flex; gap: 1.5rem; }
+        .paper-title { font-family: var(--serif); font-size: 1.8rem; font-weight: 400; color: var(--text); margin-bottom: 1rem; line-height: 1.3; }
+        .paper-abstract { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 50rem; text-align: justify; }
+        .paper-tags { display: flex; gap: 0.8rem; }
+        .tag { font-family: var(--mono); font-size: 0.6rem; padding: 0.2rem 0.6rem; border: 0.5px solid var(--border); color: var(--text-muted); text-transform: uppercase; }
+        
+        .paper-actions { margin-top: 1.5rem; display: flex; gap: 2rem; }
+        .action-link { font-family: var(--mono); font-size: 0.7rem; color: var(--gold-lt); text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px solid transparent; transition: 0.3s; }
+        .action-link:hover { border-bottom-color: var(--gold-lt); }
+
+        /* JOURNAL CLUB SECTION */
+        .journal-club { background: var(--bg2); padding: 6rem 3rem; border-top: 0.5px solid var(--border-dim); }
+        .jc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .jc-card { background: var(--bg); border: 0.5px solid var(--border-dim); padding: 2rem; transition: 0.3s; }
+        .jc-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .jc-date { font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted); margin-bottom: 1rem; }
+
+        /* REVEAL */
+        .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        @media (max-width: 1000px) {
+            .research-container { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .page-header, .research-container, .journal-club { padding-left: 1.5rem; padding-right: 1.5rem; }
+        }
     </style>
 </head>
 <body>
-    <h1>Scientific Research & Projects</h1>
-    <p><a href="index.html">← Back to Home</a></p>
 
-    <div class="project">
-        <h3>Statistical Learning & LLM</h3>
-        <p>Analisi di architetture RAG per l'ottimizzazione del recupero informativo in ambito tecnico-scientifico.</p>
-    </div>
-
-    <div class="project">
-        <h3>High-Performance Computing</h3>
-        <p>Implementazioni in <strong>C++</strong> e <strong>Julia</strong> per la risoluzione di problemi di calcolo numerico avanzato.</p>
-    </div>
-    <nav style="margin-bottom: 20px; padding: 10px 0; border-bottom: 1px solid #eee;">
-    <a href="index.html" style="margin-right: 15px; text-decoration: none; color: #005a9c; font-weight: bold;">Home</a>
-    <a href="research.html" style="margin-right: 15px; text-decoration: none; color: #005a9c;">Research</a>
-    <a href="statuto.html" style="text-decoration: none; color: #005a9c;">Statuto</a>
+<nav>
+    <a href="index.html" class="nav-logo">Hilbert <span>Atrium</span></a>
+    <ul class="nav-links">
+        <li><a href="index.html#manifesto">Missione</a></li>
+        <li><a href="index.html#focus">Ricerca</a></li>
+        <li><a href="research.html" class="active">Publications</a></li>
+        <li><a href="statuto.html">Statuto</a></li>
+    </ul>
+    <a href="index.html#join" class="nav-cta">Unisciti</a>
 </nav>
+
+<header class="page-header">
+    <div class="page-eyebrow">Archive & Working Papers</div>
+    <h1 class="page-title">Frontiere della <em>Conoscenza</em>.</h1>
+    <p style="max-width: 600px; color: var(--text-muted);">
+        Una raccolta curata di paper, note tecniche e contributi prodotti dai membri dell'associazione o discussi durante i nostri cicli di seminari.
+    </p>
+</header>
+
+<main class="research-container">
+    <aside class="sidebar">
+        <section>
+            <h4>Categorie</h4>
+            <ul class="filter-list">
+                <li class="filter-item"><a href="#" class="filter-link">Tutte le Pubblicazioni <span>12</span></a></li>
+                <li class="filter-item"><a href="#" class="filter-link">Statistical Learning <span>5</span></a></li>
+                <li class="filter-item"><a href="#" class="filter-link">PDE & Analysis <span>3</span></a></li>
+                <li class="filter-item"><a href="#" class="filter-link">Quantum Formalism <span>2</span></a></li>
+                <li class="filter-item"><a href="#" class="filter-link">Numerical Methods <span>2</span></a></li>
+            </ul>
+        </section>
+    </aside>
+
+    <div class="content">
+        <article class="paper-entry reveal">
+            <div class="paper-meta">
+                <span>Working Paper</span>
+                <span>Aprile 2026</span>
+                <span>HA-2026-04</span>
+            </div>
+            <h2 class="paper-title">Convergenza debole in spazi di Hilbert RKHS per il Generalization Bound di reti neurali profonde.</h2>
+            <p class="paper-abstract">
+                In questo lavoro analizziamo la dinamica dell'apprendimento in regimi di over-parametrizzazione, utilizzando la teoria dei nuclei (RKHS) per derivare bound di generalizzazione più stretti. Dimostriamo che la successione dei pesi converge debolmente in una norma indotta dall'operatore di covarianza $C_x$ definito come $\langle f, g \rangle_{\mathcal{H}}$.
+            </p>
+            <div class="paper-tags">
+                <span class="tag">Deep Learning</span>
+                <span class="tag">Functional Analysis</span>
+                <span class="tag">RKHS</span>
+            </div>
+            <div class="paper-actions">
+                <a href="#" class="action-link">Abstract (PDF)</a>
+                <a href="#" class="action-link">GitHub Repo</a>
+            </div>
+        </article>
+
+        <article class="paper-entry reveal">
+            <div class="paper-meta">
+                <span>Technical Note</span>
+                <span>Febbraio 2026</span>
+                <span>HA-2026-02</span>
+            </div>
+            <h2 class="paper-title">Sull'approssimazione variazionale di soluzioni deboli per equazioni di Navier-Stokes stocastiche.</h2>
+            <p class="paper-abstract">
+                Esploriamo l'applicazione dei metodi di Galerkin alla risoluzione di flussi turbolenti sotto perturbazioni stocastiche. Particolare enfasi è posta sulla stabilità dello schema numerico al variare del parametro di volatilità $\sigma$ nel termine di drift.
+            </p>
+            <div class="paper-tags">
+                <span class="tag">Stochastic PDE</span>
+                <span class="tag">Fluid Dynamics</span>
+                <span class="tag">C++</span>
+            </div>
+            <div class="paper-actions">
+                <a href="#" class="action-link">Leggi Note</a>
+            </div>
+        </article>
+
+        <article class="paper-entry reveal">
+            <div class="paper-meta">
+                <span>Research Poster</span>
+                <span>Gennaio 2026</span>
+                <span>Polimi Open Day</span>
+            </div>
+            <h2 class="paper-title">Spazi di Sobolev e regolarità di $u \in W^{k,p}(\Omega)$ in domini non lipschitziani.</h2>
+            <p class="paper-abstract">
+                Analisi contro-intuitiva della perdita di regolarità per problemi ellittici al contorno quando la frontiera $\partial\Omega$ presenta singolarità geometriche. Discussione sull'embedding di Sobolev $W^{1,p} \hookrightarrow L^{p^*}$.
+            </p>
+            <div class="paper-tags">
+                <span class="tag">Pure Math</span>
+                <span class="tag">Sobolev Spaces</span>
+            </div>
+            <div class="paper-actions">
+                <a href="#" class="action-link">Visualizza Poster</a>
+            </div>
+        </article>
+    </div>
+</main>
+
+<section class="journal-club">
+    <div class="section-label" data-n="JC" style="margin-bottom: 1rem; color: var(--gold);">Journal Club</div>
+    <h2 class="page-title" style="font-size: 2.5rem;">Paper <em>Reading</em> Group</h2>
+    <p style="color: var(--text-muted); max-width: 700px;">Settimanalmente ci riuniamo per decostruire i lavori più significativi della letteratura recente. Dalla teoria alla lavagna.</p>
+    
+    <div class="jc-grid">
+        <div class="jc-card reveal">
+            <div class="jc-date">Prossimo Incontro: 15 Aprile</div>
+            <h3 style="font-family: var(--serif); margin-bottom: 1rem;">Attention is All You Need</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Analisi formale del meccanismo di auto-attenzione come proiezione in sottospazi di bassa dimensione.</p>
+            <a href="#" class="action-link">Registrati</a>
+        </div>
+        <div class="jc-card reveal">
+            <div class="jc-date">Archivio: 22 Marzo</div>
+            <h3 style="font-family: var(--serif); margin-bottom: 1rem;">Optimal Transport</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Discussione sulla distanza di Wasserstein e applicazioni alla stabilità delle GAN.</p>
+            <a href="#" class="action-link">Note dell'incontro</a>
+        </div>
+        <div class="jc-card reveal">
+            <div class="jc-date">Archivio: 08 Marzo</div>
+            <h3 style="font-family: var(--serif); margin-bottom: 1rem;">Spectral Clustering</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Proprietà spettrali del Laplaciano del grafo e partizionamento di dataset non convessi.</p>
+            <a href="#" class="action-link">Note dell'incontro</a>
+        </div>
+    </div>
+</section>
+
+<footer style="padding: 4rem 3rem; border-top: 0.5px solid var(--border-dim); text-align: center;">
+    <p style="font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted);">
+        Hilbert Atrium · Politecnico di Milano · 2026<br>
+        Tutti i contenuti sono rilasciati per scopi educativi e di ricerca.
+    </p>
+</footer>
+
+<script>
+    // Reveal animation logic
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if(e.isIntersecting){
+                e.target.classList.add('visible');
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
 </body>
 </html>
