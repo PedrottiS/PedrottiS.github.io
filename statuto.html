@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Statuto — Hilbert Atrium · Polimi</title>
+<meta name="description" content="Statuto ufficiale dell'Associazione Studentesca Hilbert Atrium, Politecnico di Milano.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=JetBrains+Mono:wght@300;400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #060a12;
+  --bg2:       #0c1220;
+  --bg3:       #111827;
+  --text:      #d9d0be;
+  --text-muted:#7a7060;
+  --gold:      #c4973d;
+  --gold-lt:   #e8c97a;
+  --border:    rgba(196,151,61,0.18);
+  --border-dim:rgba(255,255,255,0.06);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Outfit', system-ui, sans-serif;
+  --mono:  'JetBrains Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── CANVAS ── */
+#bg-canvas {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none; opacity: 0.2;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 3rem;
+  background: rgba(6,10,18,0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 0.5px solid var(--border);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 0.75rem;
+  text-decoration: none;
+}
+.nav-logo img { height: 2.6rem; width: 2.6rem; object-fit: contain; filter: drop-shadow(0 0 6px rgba(196,151,61,0.35)); }
+.nav-logo-text { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; color: var(--gold-lt); letter-spacing: 0.02em; }
+.nav-logo-text span { font-weight: 300; font-style: italic; color: var(--text); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--gold-lt); }
+.nav-cta { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.5rem 1.3rem; border: 0.5px solid var(--gold); color: var(--gold); text-decoration: none; transition: background 0.2s, color 0.2s; }
+.nav-cta:hover { background: var(--gold); color: var(--bg); }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  position: relative; z-index: 1;
+  padding: 10rem 3rem 5rem;
+  border-bottom: 0.5px solid var(--border-dim);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem; align-items: end;
+}
+.page-header-left {}
+.page-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.page-eyebrow::before { content:''; display:block; width:2rem; height:0.5px; background:var(--gold); }
+.page-title {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 300; line-height: 0.9;
+  letter-spacing: -0.01em;
+}
+.page-title em { font-style: italic; color: var(--gold-lt); display: block; }
+.page-header-meta {
+  text-align: right;
+}
+.page-header-meta p {
+  font-family: var(--mono);
+  font-size: 0.68rem; letter-spacing: 0.12em;
+  color: var(--text-muted); line-height: 1.8;
+}
+.page-header-meta strong { color: var(--text); font-weight: 400; }
+
+/* ── PREAMBOLO HIGHLIGHT ── */
+.preambolo-section {
+  position: relative; z-index: 1;
+  padding: 5rem 3rem;
+  background: var(--bg2);
+  border-bottom: 0.5px solid var(--border-dim);
+}
+.preambolo-inner {
+  max-width: 56rem; margin: 0 auto;
+  border-left: 2px solid var(--gold);
+  padding-left: 2.5rem;
+}
+.preambolo-label {
+  font-family: var(--mono);
+  font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.5rem;
+}
+.preambolo-text {
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-weight: 300; font-style: italic;
+  line-height: 1.65; color: var(--text);
+}
+.preambolo-text strong { font-weight: 600; font-style: normal; color: var(--gold-lt); }
+
+/* ── STATUTE BODY ── */
+.statute-body {
+  position: relative; z-index: 1;
+  padding: 5rem 3rem 8rem;
+  display: grid;
+  grid-template-columns: 16rem 1fr;
+  gap: 5rem; align-items: start;
+}
+
+/* TOC sidebar */
+.statute-toc {
+  position: sticky; top: 5rem;
+}
+.toc-label {
+  font-family: var(--mono);
+  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.2rem;
+}
+.toc-list { list-style: none; }
+.toc-list li { margin-bottom: 0.15rem; }
+.toc-list a {
+  font-family: var(--mono);
+  font-size: 0.72rem; letter-spacing: 0.06em;
+  color: var(--text-muted); text-decoration: none;
+  line-height: 1.6;
+  display: flex; gap: 0.6rem; align-items: baseline;
+  transition: color 0.2s;
+  padding: 0.2rem 0;
+  border-left: 1.5px solid transparent;
+  padding-left: 0.8rem;
+  transition: color 0.2s, border-color 0.2s;
+}
+.toc-list a:hover, .toc-list a.active {
+  color: var(--gold-lt);
+  border-left-color: var(--gold);
+}
+.toc-num { opacity: 0.4; font-size: 0.6rem; flex-shrink: 0; }
+
+/* Articles */
+.statute-articles {}
+.statute-article {
+  padding: 3rem 0;
+  border-top: 0.5px solid var(--border-dim);
+}
+.statute-article:first-child { border-top: none; padding-top: 0; }
+.article-header {
+  display: flex; align-items: baseline; gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.article-num {
+  font-family: var(--mono);
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); flex-shrink: 0;
+  background: rgba(196,151,61,0.08);
+  border: 0.5px solid var(--border);
+  padding: 0.3rem 0.7rem;
+}
+.article-title {
+  font-family: var(--serif);
+  font-size: 1.5rem; font-weight: 400;
+  color: var(--text); line-height: 1.2;
+}
+.article-body p {
+  font-size: 0.95rem; line-height: 1.85;
+  color: var(--text-muted); margin-bottom: 1rem;
+}
+.article-body p:last-child { margin-bottom: 0; }
+.article-body strong { color: var(--text); font-weight: 500; }
+.article-body em { color: var(--gold-lt); font-style: italic; }
+.article-list {
+  list-style: none; margin: 1rem 0;
+}
+.article-list li {
+  font-size: 0.93rem; line-height: 1.75; color: var(--text-muted);
+  padding: 0.5rem 0 0.5rem 1.2rem;
+  border-bottom: 0.5px solid var(--border-dim);
+  position: relative;
+}
+.article-list li::before {
+  content: '—';
+  position: absolute; left: 0;
+  color: var(--gold); font-size: 0.8rem;
+}
+.article-list li:last-child { border-bottom: none; }
+.article-list li strong { color: var(--text); font-weight: 500; }
+
+/* highlight box */
+.article-highlight {
+  background: rgba(196,151,61,0.05);
+  border: 0.5px solid var(--border);
+  border-left: 2px solid var(--gold);
+  padding: 1.2rem 1.6rem;
+  margin: 1.2rem 0;
+  font-size: 0.9rem; line-height: 1.75;
+  color: var(--text-muted);
+}
+.article-highlight strong { color: var(--text); font-weight: 500; }
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 0.5px solid var(--border-dim);
+  padding: 3rem;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: start;
+}
+.footer-brand-row { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 0.8rem; }
+.footer-brand-row img { height: 2.4rem; width: 2.4rem; object-fit: contain; filter: drop-shadow(0 0 4px rgba(196,151,61,0.3)); }
+.footer-logo { font-family: var(--serif); font-size: 1.2rem; color: var(--gold-lt); }
+.footer-tagline { font-family: var(--mono); font-size: 0.67rem; letter-spacing: 0.12em; color: var(--text-muted); line-height: 1.6; }
+.footer-col h4 { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.5rem; }
+.footer-col a { font-size: 0.85rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.footer-col a:hover { color: var(--text); }
+.footer-bottom { position: relative; z-index: 1; border-top: 0.5px solid var(--border-dim); padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+.footer-bottom p { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-muted); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0.75rem 1.5rem; }
+  .nav-links { display: none; }
+  .page-header { grid-template-columns: 1fr; padding: 8rem 1.5rem 3rem; }
+  .page-header-meta { text-align: left; }
+  .preambolo-section { padding: 3rem 1.5rem; }
+  .statute-body { grid-template-columns: 1fr; gap: 0; padding: 2rem 1.5rem 5rem; }
+  .statute-toc { display: none; }
+  footer { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+  .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo_HA.png" alt="Hilbert Atrium Logo">
+    <span class="nav-logo-text">Hilbert <span>Atrium</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#manifesto">Missione</a></li>
+    <li><a href="index.html#focus">Ricerca</a></li>
+    <li><a href="index.html#philosophy">Filosofia</a></li>
+    <li><a href="research.html">Publications</a></li>
+    <li><a href="statuto.html" class="active">Statuto</a></li>
+  </ul>
+  <a href="index.html#join" class="nav-cta">Unisciti</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="page-header-left">
+    <div class="page-eyebrow">Documento Fondativo · 2024</div>
+    <h1 class="page-title">Statuto<br><em>dell'Associazione</em></h1>
+  </div>
+  <div class="page-header-meta">
+    <p>
+      <strong>Hilbert Atrium</strong><br>
+      Associazione Studentesca<br>
+      Politecnico di Milano<br>
+      Piazza Leonardo da Vinci 32<br>
+      20133, Milano<br><br>
+      <strong>Durata:</strong> fino al 1 Gennaio 2050<br>
+      <strong>Quota associativa:</strong> €5,00 / anno
+    </p>
+  </div>
+</header>
+
+<!-- PREAMBOLO -->
+<div class="preambolo-section reveal">
+  <div class="preambolo-inner">
+    <div class="preambolo-label">Preambolo</div>
+    <p class="preambolo-text">
+      L'Associazione "Hilbert Atrium" nasce dalla volontà di un gruppo di studenti del Politecnico di Milano di creare uno spazio di confronto che non sia solo fisico, ma concettuale. Consapevoli che la conoscenza è un insieme denso di sfide, i soci fondatori si impegnano a garantire che ogni discussione all'interno dell'Atrium sia <strong>completa</strong> — affinché ogni successione di idee convergente trovi un limite ben definito entro i confini della nostra comunità — e rigorosamente <strong>separabile</strong>, permettendo a ogni socio di distinguere chiaramente tra un'intuizione brillante e un errore di approssimazione, pur mantenendo uno spazio di Hilbert di dimensione infinita per la creatività.
+    </p>
+  </div>
+</div>
+
+<!-- STATUTE BODY -->
+<div class="statute-body">
+
+  <!-- TOC -->
+  <nav class="statute-toc">
+    <div class="toc-label">Indice</div>
+    <ul class="toc-list">
+      <li><a href="#art1"><span class="toc-num">01</span> Denominazione e Sede</a></li>
+      <li><a href="#art2"><span class="toc-num">02</span> Finalità e Scopi</a></li>
+      <li><a href="#art3"><span class="toc-num">03</span> Durata</a></li>
+      <li><a href="#art4"><span class="toc-num">04</span> Soci</a></li>
+      <li><a href="#art5"><span class="toc-num">05</span> Perdita della Qualità di Socio</a></li>
+      <li><a href="#art6"><span class="toc-num">06</span> Diritti e Doveri dei Soci</a></li>
+      <li><a href="#art7"><span class="toc-num">07</span> Organi dell'Associazione</a></li>
+      <li><a href="#art8"><span class="toc-num">08</span> Elezione e Decadenza del CD</a></li>
+      <li><a href="#art9"><span class="toc-num">09</span> Risorse Economiche</a></li>
+      <li><a href="#art10"><span class="toc-num">10</span> Esercizio Finanziario</a></li>
+      <li><a href="#art11"><span class="toc-num">11</span> Scioglimento</a></li>
+    </ul>
+  </nav>
+
+  <!-- ARTICLES -->
+  <div class="statute-articles">
+
+    <div class="statute-article reveal" id="art1">
+      <div class="article-header">
+        <span class="article-num">Art. 01</span>
+        <h2 class="article-title">Denominazione e Sede</h2>
+      </div>
+      <div class="article-body">
+        <p>È costituita l'Associazione studentesca denominata <strong>"Hilbert Atrium"</strong>. L'Associazione ha sede legale presso <strong>Piazza Leonardo da Vinci 32, 20133, Milano</strong>.</p>
+      </div>
+    </div>
+
+    <div class="statute-article reveal" id="art2">
+      <div class="article-header">
+        <span class="article-num">Art. 02</span>
+        <h2 class="article-title">Finalità e Scopi</h2>
+      </div>
+      <div class="article-body">
+        <p>L'Associazione è apolitica, aconfessionale e non persegue fini di lucro. I suoi obiettivi principali sono:</p>
+        <ul class="article-list">
+          <li>Promuovere la cultura scientifica garantendo la <strong>completezza</strong> del dibattito accademico, affinché nessuna idea valida rimanga esclusa dallo spazio di discussione.</li>
+          <li>Assicurare la <strong>separabilità</strong> degli ambiti di ricerca, fornendo strumenti critici per isolare i problemi complessi e risolverli con approccio ingegneristico.</li>
+          <li><strong>Colmare il gap tra il percorso universitario standard e il mondo della ricerca matematica avanzata</strong>, facilitando il contatto tra gli studenti e l'ambiente accademico specializzato o il mondo tecnico-industriale ad alto contenuto matematico.</li>
+          <li>Creare una rete di scambio che permetta la proiezione delle competenze teoriche verso applicazioni tecniche e di ricerca d'avanguardia.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="statute-article reveal" id="art3">
+      <div class="article-header">
+        <span class="article-num">Art. 03</span>
+        <h2 class="article-title">Durata dell'Associazione</h2>
+      </div>
+      <div class="article-body">
+        <p>La durata di Hilbert Atrium è fissata sino al <strong>1 Gennaio 2050</strong>. Essa potrà essere prorogata mediante delibera dell'Assemblea Generale secondo le disposizioni di Statuto, Regolamenti e legge.</p>
+      </div>
+    </div>
+
+    <div class="statute-article reveal" id="art4">
+      <div class="article-header">
+        <span class="article-num">Art. 04</span>
+        <h2 class="article-title">Soci</h2>
+      </div>
+      <div class="article-body">
+        <p>Posseggono la qualifica di Socio di Hilbert Atrium coloro che vi aderiscono nel corso della sua esistenza e che sono in possesso dei seguenti requisiti:</p>
+        <ul class="article-list">
+          <li>Essere iscritti ad un corso di laurea triennale, magistrale, magistrale a ciclo unico, master specialistici, dottorato oppure aderire al progetto Erasmus presso Politecnico di Milano.</li>
+          <li>Aver superato il processo di selezione con esito positivo, le cui concrete modalità di svolgimento sono definite annualmente dal Consiglio Direttivo.</li>
+          <li>Avere un'età inferiore agli anni 35.</li>
+        </ul>
+        <div class="article-highlight">
+          I Soci, in deroga al requisito di iscrizione, possono permanere all'interno dell'Associazione per un periodo ulteriore fino ad <strong>1 anno</strong> dal momento del conseguimento del titolo. Tale proroga è previamente deliberata dal CdA, solo in casi di effettiva necessità. Decorso il periodo di proroga si decade la qualifica di Socio.
+        </div>
+        <p>Nel caso in cui il Socio, entro tre mesi dal conseguimento, rinnovi l'iscrizione presso Politecnico di Milano per un ulteriore ciclo di studi, egli conserva con soluzione di continuità lo status di Socio, senza previa delibera del Consiglio Direttivo.</p>
+        <p>I soci si dividono in:</p>
+        <ul class="article-list">
+          <li><strong>Soci Fondatori:</strong> coloro che hanno partecipato alla costituzione.</li>
+          <li><strong>Soci Ordinari:</strong> studenti che aderiscono successivamente versando l'eventuale quota associativa.</li>
+          <li><strong>Soci Onorari:</strong> personalità che hanno reso servizi insigni all'Associazione.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="statute-article reveal" id="art5">
+      <div class="article-header">
+        <span class="article-num">Art. 05</span>
+        <h2 class="article-title">Perdita della Qualità di Socio</h2>
+      </div>
+      <div class="article-body">
+        <p>La qualità di Socio si perde per:</p>
+        <ul class="article-list">
+          <li>Termine del proprio percorso di studio, salvo le deroghe previste dall'Art. 4.</li>
+          <li>Raggiungimento del trentacinquesimo anno di età.</li>
+          <li>Recesso dall'Associazione, liberamente esercitabile dal Socio salvo congruo preavviso (entro due settimane), mediante comunicazione al Presidente; gli effetti decorrono dal momento della notifica.</li>
+          <li>Espulsione dall'Associazione, per gravi motivi disciplinari, mediante delibera del Consiglio Direttivo.</li>
+          <li>Interdizione, inabilitazione, morte.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="statute-article reveal" id="art6">
+      <div class="article-header">
+        <span class="article-num">Art. 06</span>
+        <h2 class="article-title">Diritti e Doveri dei Soci</h2>
+      </div>
+      <div class="article-body">
+        <p>L'adesione all'Associazione comporta per tutti i Soci il <strong>diritto di partecipazione e di voto</strong> all'Assemblea Generale, secondo le disposizioni di Statuto e Regolamenti.</p>
+        <p>I soci hanno il dovere di partecipare proficuamente alla vita associativa e alle attività realizzate e promosse dall'Associazione. Hanno altresì facoltà di concorrere a ricoprire le cariche associative.</p>
+        <p>I Soci hanno il diritto di utilizzare i locali e le dotazioni in uso all'Associazione per le attività ad essa attinenti. <strong>I Soci non hanno diritto a nessun compenso, stipendio, salario o altra modalità di retribuzione diretta</strong> per le attività che svolgono in nome e per conto dell'Associazione.</p>
+        <p>I Soci hanno l'obbligo di osservare le disposizioni di Statuto e Regolamenti, nonché ogni codice etico e di condotta conosciuto o conoscibile, le prassi dell'Associazione e le disposizioni di legge.</p>
+      </div>
+    </div>
+
+    <div class="statute-article reveal" id="art7">
+      <div class="article-header">
+        <span class="article-num">Art. 07</span>
+        <h2 class="article-title">Organi dell'Associazione</h2>
+      </div>
+      <div class="article-body">
+        <p>L'Associazione è retta dai seguenti organi, le cui cariche sono ricoperte <strong>a titolo gratuito</strong>:</p>
+        <ul class="article-list">
+          <li><strong>Assemblea dei Soci:</strong> L'organo sovrano che approva il bilancio e definisce le linee strategiche.</li>
+          <li><strong>Consiglio Direttivo (CD):</strong> Composto da un numero dispari di membri, gestisce l'ordinaria amministrazione.</li>
+          <li><strong>Presidente:</strong> Rappresenta legalmente l'Associazione e presiede il CD.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="statute-article reveal" id="art8">
+      <div class="article-header">
+        <span class="article-num">Art. 08</span>
+        <h2 class="article-title">Elezione, Recesso, Dimissioni e Decadenza del CD</h2>
+      </div>
+      <div class="article-body">
+        <p>Il Consiglio Direttivo è l'organo di gestione dell'Associazione. I suoi membri sono eletti dall'Assemblea dei Soci tra gli associati in regola con il versamento delle quote. Il CD dura in carica <strong>2 (due) anni</strong> e i suoi componenti sono rieleggibili. Allo scadere del mandato, il CD rimane in carica per l'ordinaria amministrazione fino all'insediamento del nuovo organo.</p>
+        <p>Ogni membro del CD può rassegnare le proprie dimissioni in qualsiasi momento mediante comunicazione scritta indirizzata al Presidente. Le dimissioni hanno effetto immediato se rimane in carica la maggioranza del CD.</p>
+        <p>Un membro del CD decade automaticamente dalla carica qualora:</p>
+        <ul class="article-list">
+          <li>Perda la qualifica di socio dell'Associazione.</li>
+          <li>Sia oggetto di una delibera di sfiducia votata dalla <strong>maggioranza assoluta</strong> dell'Assemblea dei Soci.</li>
+        </ul>
+        <div class="article-highlight">
+          Qualora nel corso del biennio venisse a mancare uno o più consiglieri, il CD può provvedere alla loro sostituzione per <strong>cooptazione</strong> tra i soci, previa ratifica della prima Assemblea utile. I consiglieri così nominati scadono insieme a quelli in carica all'atto della loro nomina.
+        </div>
+        <p>Qualora per dimissioni o altre cause venga a mancare la <strong>maggioranza dei componenti</strong> del CD, l'intero Consiglio si intende decaduto. In tal caso, il Presidente deve convocare d'urgenza l'Assemblea entro <strong>30 giorni</strong> per l'elezione del nuovo organo.</p>
+      </div>
+    </div>
+
+    <div class="statute-article reveal" id="art9">
+      <div class="article-header">
+        <span class="article-num">Art. 09</span>
+        <h2 class="article-title">Risorse Economiche</h2>
+      </div>
+      <div class="article-body">
+        <p>Le entrate dell'Associazione sono costituite da:</p>
+        <ul class="article-list">
+          <li>Quote associative annuali (<strong>€5,00</strong> – cinque/00).</li>
+          <li>Contributi erogati dal Politecnico di Milano tramite i bandi per le attività studentesche.</li>
+          <li>Eventuali donazioni o sponsorizzazioni esterne nel rispetto della normativa vigente.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="statute-article reveal" id="art10">
+      <div class="article-header">
+        <span class="article-num">Art. 10</span>
+        <h2 class="article-title">Esercizio Finanziario</h2>
+      </div>
+      <div class="article-body">
+        <p>L'anno sociale e l'esercizio finanziario coincidono con l'anno solare (<strong>1 Gennaio – 31 Dicembre</strong>). Al termine di ogni esercizio, il Tesoriere redige il bilancio che deve essere approvato dall'Assemblea entro i termini previsti dai regolamenti universitari.</p>
+      </div>
+    </div>
+
+    <div class="statute-article reveal" id="art11">
+      <div class="article-header">
+        <span class="article-num">Art. 11</span>
+        <h2 class="article-title">Scioglimento</h2>
+      </div>
+      <div class="article-body">
+        <p>Lo scioglimento è deliberato dall'Assemblea con la <strong>maggioranza qualificata dei 3/4 dei soci</strong>. In caso di scioglimento, l'eventuale patrimonio residuo sarà devoluto a finalità di pubblica utilità o altre associazioni studentesche affini, secondo le indicazioni del Politecnico di Milano.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="footer-brand-row">
+      <img src="logo_HA.png" alt="Hilbert Atrium">
+      <div class="footer-logo">Hilbert Atrium</div>
+    </div>
+    <p class="footer-tagline">
+      Associazione Studentesca<br>
+      Politecnico di Milano<br>
+      Dipartimento di Matematica<br><br>
+      <em>"A complete space for<br>divergent ideas to converge."</em>
+    </p>
+  </div>
+  <div class="footer-col">
+    <h4>Navigazione</h4>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="statuto.html">Statuto</a></li>
+      <li><a href="index.html#join">Contatti</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Risorse</h4>
+    <ul>
+      <li><a href="#">Reading Group</a></li>
+      <li><a href="#">Seminari</a></li>
+      <li><a href="#">GitHub</a></li>
+      <li><a href="https://www.polimi.it" target="_blank">Polimi</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2026 Hilbert Atrium · Politecnico di Milano · Released under Apache 2.0 License</p>
+  <p>Built with GitHub Pages · KaTeX · Amore per la Matematica</p>
+</div>
+
+<script>
+// Canvas background
+(function(){
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, t = 0;
+  function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    const spacing = 52;
+    const cols = Math.ceil(W/spacing)+1, rows = Math.ceil(H/spacing)+1;
+    for(let r=0;r<rows;r++){
+      for(let c=0;c<cols;c++){
+        const x=c*spacing, y=r*spacing;
+        const d = Math.sin(x*0.006+t)*Math.cos(y*0.006+t*0.5);
+        ctx.globalAlpha = 0.05 + 0.08*Math.abs(d);
+        ctx.fillStyle='rgba(196,151,61,1)';
+        ctx.beginPath(); ctx.arc(x,y,0.8,0,Math.PI*2); ctx.fill();
+      }
+    }
+    ctx.globalAlpha=1;
+    t += 0.003; requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// Reveal on scroll
+(function(){
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  els.forEach(el => obs.observe(el));
+})();
+
+// TOC active highlight
+(function(){
+  const articles = document.querySelectorAll('.statute-article');
+  const links = document.querySelectorAll('.toc-list a');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.toc-list a[href="#${e.target.id}"]`);
+        if(active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  articles.forEach(a => obs.observe(a));
+})();
+</script>
+</body>
+</html>
