@@ -37,13 +37,11 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
-
 /* ── CANVAS ── */
 #bg-canvas {
   position: fixed; inset: 0; z-index: 0;
   pointer-events: none; opacity: 0.35;
 }
-
 /* ── NAV ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -82,7 +80,6 @@ nav.scrolled {
   transition: background 0.2s, color 0.2s;
 }
 .nav-cta:hover { background: var(--gold); color: var(--bg); }
-
 /* ── HERO ── */
 .hero {
   position: relative; z-index: 1;
@@ -175,7 +172,6 @@ nav.scrolled {
 }
 @keyframes pulse-scroll { 0%,100%{opacity:0.4} 50%{opacity:0.9} }
 @keyframes scroll-line { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
-
 /* ── SECTION BASE ── */
 section { position: relative; z-index: 1; }
 .section-label {
@@ -188,7 +184,6 @@ section { position: relative; z-index: 1; }
   content: attr(data-n);
   font-size: 0.6rem; opacity: 0.5;
 }
-
 /* ── MANIFESTO ── */
 .manifesto {
   padding: 7rem 3rem;
@@ -222,7 +217,6 @@ section { position: relative; z-index: 1; }
 }
 .manifesto-right p strong { color: var(--text); font-weight: 500; }
 .inline-eq { display: inline-block; }
-
 /* ── STATS STRIP ── */
 .stats-strip {
   border-top: 0.5px solid var(--border-dim);
@@ -247,7 +241,6 @@ section { position: relative; z-index: 1; }
   font-size: 0.78rem; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--text-muted);
 }
-
 /* ── FOCUS AREAS ── */
 .focus {
   padding: 7rem 3rem;
@@ -319,7 +312,6 @@ section { position: relative; z-index: 1; }
   border-bottom: 0.5px solid var(--gold);
   padding-bottom: 0.2rem;
 }
-
 /* ── RESEARCH PHILOSOPHY ── */
 .philosophy {
   padding: 7rem 3rem;
@@ -356,7 +348,6 @@ section { position: relative; z-index: 1; }
   font-size: 0.87rem; line-height: 1.75;
   color: var(--text-muted);
 }
-
 /* ── HIGHLIGHTED QUOTE ── */
 .pullquote-section {
   padding: 5rem 3rem;
@@ -382,7 +373,6 @@ section { position: relative; z-index: 1; }
   font-style: italic; color: var(--text);
 }
 .pullquote-text strong { color: var(--gold-lt); font-weight: 400; font-style: normal; }
-
 /* ── JOIN CTA ── */
 .join-section {
   padding: 8rem 3rem;
@@ -400,7 +390,6 @@ section { position: relative; z-index: 1; }
 .join-title em { color: var(--gold-lt); font-style: italic; }
 .join-body { font-size: 0.95rem; line-height: 1.8; color: var(--text-muted); max-width: 36rem; }
 .join-action { display: flex; flex-direction: column; gap: 1rem; align-items: flex-end; }
-
 /* ── FOOTER ── */
 footer {
   position: relative; z-index: 1;
@@ -443,7 +432,6 @@ footer {
   font-family: var(--mono);
   font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-muted);
 }
-
 /* ── REVEAL ANIMATION ── */
 .reveal {
   opacity: 0; transform: translateY(28px);
@@ -451,75 +439,306 @@ footer {
 }
 .reveal.visible { opacity: 1; transform: none; }
 
-/* ── RESPONSIVE ── */
-/* ── RESPONSIVE MOBILE OPTIMIZATION ── */
+/* ════════════════════════════════════════════════
+   MOBILE — tutto ciò che segue è nuovo
+   ════════════════════════════════════════════════ */
+
+/* Hamburger button — nascosto su desktop */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.2rem;
+  height: 2.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 200;
+}
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--gold-lt);
+  transition: transform 0.35s ease, opacity 0.25s ease, width 0.3s ease;
+  transform-origin: center;
+}
+/* X state */
+.hamburger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; width: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Mobile drawer */
+.mobile-drawer {
+  display: none; /* sempre nascosto su desktop */
+}
+
 @media (max-width: 768px) {
-    /* Riduzione font per titoli massicci */
-    .hero h1 { 
-        font-size: clamp(3.5rem, 15vw, 5rem); 
-        line-height: 1;
-    }
-    
-    .page-title { font-size: 2.8rem; }
 
-    /* Navigazione Mobile */
-    nav { padding: 1rem 1.5rem; }
-    
-    .nav-links {
-        display: none; /* Nascondiamo i link standard */
-        position: absolute;
-        top: 100%; left: 0; right: 0;
-        flex-direction: column;
-        background: var(--bg2);
-        padding: 2rem;
-        gap: 1.5rem;
-        border-bottom: 0.5px solid var(--border);
-        text-align: center;
-    }
+  /* ── NAV mobile ── */
+  nav {
+    padding: 1rem 1.4rem;
+  }
+  .nav-links,
+  .nav-cta {
+    display: none; /* nascosti su mobile */
+  }
+  .hamburger {
+    display: flex;
+  }
 
-    .nav-links.mobile-active {
-        display: flex; /* Appare quando cliccato */
-    }
+  /* ── Drawer fullscreen ── */
+  .mobile-drawer {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background: rgba(6,10,18,0.97);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.77,0,0.18,1);
+    padding: 6rem 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    overflow-y: auto;
+  }
+  .mobile-drawer.open {
+    transform: translateX(0);
+  }
+  .mobile-drawer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .mobile-drawer-links li {
+    border-bottom: 0.5px solid var(--border-dim);
+    overflow: hidden;
+  }
+  .mobile-drawer-links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 0;
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: color 0.2s;
+  }
+  .mobile-drawer-links a:hover { color: var(--gold-lt); }
+  .mobile-drawer-links a::after {
+    content: '→';
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    opacity: 0.6;
+  }
+  .mobile-drawer-cta {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .mobile-drawer-cta .btn-primary,
+  .mobile-drawer-cta .btn-ghost {
+    text-align: center;
+    width: 100%;
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+  .mobile-drawer-footer {
+    margin-top: auto;
+    padding-top: 2rem;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
 
-    /* Gestione spazi e griglie */
-    .hero, .manifesto, .focus, .philosophy, .join-section, .page-header, .research-container {
-        padding-left: 1.2rem;
-        padding-right: 1.2rem;
-    }
+  /* ── HERO mobile ── */
+  .hero {
+    padding: 7rem 1.4rem 5rem;
+    min-height: 100svh;
+  }
+  .hero-eyebrow {
+    font-size: 0.64rem;
+    letter-spacing: 0.15em;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.4rem;
+  }
+  .hero-eyebrow::before { width: 1.5rem; }
+  .hero h1 {
+    font-size: clamp(4rem, 18vw, 6rem);
+    line-height: 0.9;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    margin-bottom: 1.8rem;
+  }
+  .hero-eq {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.85rem;
+    padding: 0.9rem 1rem;
+    margin-bottom: 2rem;
+    display: block;
+  }
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.8rem;
+  }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-ghost {
+    text-align: center;
+    width: 100%;
+    padding: 1rem;
+  }
 
-    .stats-strip { 
-        grid-template-columns: repeat(2, 1fr); 
-        padding: 1.5rem 1rem;
-    }
-    
-    .stat-item { border-right: none; border-bottom: 0.5px solid var(--border-dim); }
-    .stat-item:nth-child(even) { border-left: 0.5px solid var(--border-dim); }
+  /* ── MANIFESTO mobile ── */
+  .manifesto {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 4.5rem 1.4rem;
+  }
+  .manifesto-quote {
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+  }
 
-    .focus-grid, .phil-grid, .jc-grid, .research-container { 
-        grid-template-columns: 1fr !important; 
-        gap: 1.5rem;
-    }
+  /* ── STATS mobile ── */
+  .stats-strip {
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+  }
+  .stat-item {
+    padding: 1.8rem 1.2rem;
+    border-right: none;
+    border-bottom: 0.5px solid var(--border-dim);
+  }
+  /* bordo destro sulle celle di sinistra */
+  .stat-item:nth-child(odd) {
+    border-right: 0.5px solid var(--border-dim);
+  }
+  /* rimuovi border bottom sull'ultima riga */
+  .stat-item:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+  .stat-n {
+    font-size: 2.6rem;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+  }
 
-    /* Sidebar Publications - la trasformiamo in un menu a tendina o la nascondiamo */
-    .sidebar { 
-        display: block; 
-        margin-bottom: 2rem;
-        border-bottom: 0.5px solid var(--border-dim);
-        padding-bottom: 1rem;
-    }
+  /* ── FOCUS mobile ── */
+  .focus {
+    padding: 4.5rem 1.4rem;
+  }
+  .focus-header {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+  }
+  .focus-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5px;
+  }
+  .focus-card {
+    padding: 1.8rem 1.4rem;
+  }
+  .focus-card-eq {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+    display: block;
+  }
 
-    /* KaTeX: Evitiamo che le formule rompano il layout */
-    .hero-eq, .focus-card-eq, .pullquote-eq {
-        overflow-x: auto;
-        max-width: 100%;
-        display: block;
-        padding: 1rem;
-    }
+  /* ── PULLQUOTE mobile ── */
+  .pullquote-section {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 3.5rem 1.4rem;
+    align-items: flex-start;
+  }
+  .pullquote-eq {
+    min-width: unset;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.9rem;
+    padding: 1.2rem;
+  }
+  .pullquote-text {
+    font-size: clamp(1.2rem, 4.5vw, 1.5rem);
+  }
+
+  /* ── PHILOSOPHY mobile ── */
+  .philosophy {
+    padding: 4.5rem 1.4rem;
+  }
+  .phil-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .phil-item {
+    padding: 1.8rem 0;
+  }
+
+  /* ── JOIN mobile ── */
+  .join-section {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 5rem 1.4rem;
+  }
+  .join-action {
+    align-items: stretch;
+    width: 100%;
+  }
+  .join-action .btn-primary,
+  .join-action .btn-ghost {
+    text-align: center;
+    padding: 1rem;
+  }
+  .join-action p {
+    text-align: center !important;
+  }
+
+  /* ── FOOTER mobile ── */
+  footer {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 3rem 1.4rem;
+  }
+  .footer-bottom {
+    padding: 1.5rem 1.4rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  /* ── HERO SCROLL indicator ── */
+  .hero-scroll { display: none; }
+}
+
+/* Piccoli aggiustamenti per schermi molto stretti */
+@media (max-width: 360px) {
+  .hero h1 { font-size: 3.4rem; }
+  .mobile-drawer-links a { font-size: 1.7rem; }
 }
 </style>
 </head>
 <body>
-
 <canvas id="bg-canvas"></canvas>
 
 <!-- NAV -->
@@ -531,15 +750,32 @@ footer {
     <li><a href="#philosophy">Filosofia</a></li>
     <li><a href="research.html">Publications</a></li>
     <li><a href="statuto.html">Statuto</a></li>
-    <div id="menu-toggle" style="display: none; cursor: pointer; color: var(--gold-lt); font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.1em;">
-    MENU //
-  </div>
-
-  <ul class="nav-links" id="nav-menu">
-    </ul>
   </ul>
   <a href="#join" class="nav-cta">Unisciti</a>
+  <!-- Hamburger button — visibile solo su mobile -->
+  <button class="hamburger" id="hamburger" aria-label="Apri menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <ul class="mobile-drawer-links">
+    <li><a href="#manifesto" class="drawer-link">Missione</a></li>
+    <li><a href="#focus" class="drawer-link">Ricerca</a></li>
+    <li><a href="#philosophy" class="drawer-link">Filosofia</a></li>
+    <li><a href="research.html" class="drawer-link">Publications</a></li>
+    <li><a href="statuto.html" class="drawer-link">Statuto</a></li>
+  </ul>
+  <div class="mobile-drawer-cta">
+    <a href="#join" class="btn-primary drawer-link">Unisciti</a>
+    <a href="mailto:hilbertatrium@gmail.com" class="btn-ghost">Contattaci</a>
+  </div>
+  <div class="mobile-drawer-footer">
+    Hilbert Atrium · Politecnico di Milano<br>
+    hilbertatrium@gmail.com
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -609,9 +845,7 @@ footer {
       Lavoriamo all'intersezione tra rigore formale e applicabilità concreta. Ogni area è un sottospazio denso del nostro spazio di ricerca totale.
     </p>
   </div>
-
   <div class="focus-grid">
-
     <div class="focus-card">
       <div class="focus-card-num">01 ·</div>
       <h3 class="focus-card-title">Statistical Learning & AI</h3>
@@ -621,7 +855,6 @@ footer {
       <div class="focus-card-eq">$\mathcal{R}(f) \leq \hat{\mathcal{R}}(f) + \mathfrak{R}_n(\mathcal{F}) + \sqrt{\frac{\ln(1/\delta)}{2n}}$</div>
       <span class="focus-card-tag">Teoria · Implementazione · Ricerca</span>
     </div>
-
     <div class="focus-card">
       <div class="focus-card-num">02 ·</div>
       <h3 class="focus-card-title">Matematica Applicata & PDE</h3>
@@ -631,7 +864,6 @@ footer {
       <div class="focus-card-eq">$-\Delta u = f \;\text{ in }\Omega, \quad u\big|_{\partial\Omega} = 0$</div>
       <span class="focus-card-tag">Analisi · Elementi Finiti · Fisica</span>
     </div>
-
     <div class="focus-card">
       <div class="focus-card-num">03 ·</div>
       <h3 class="focus-card-title">High-Performance Scientific Computing</h3>
@@ -641,7 +873,6 @@ footer {
       <div class="focus-card-eq">$\mathbf{x}^{(k+1)} = \mathbf{x}^{(k)} - \alpha_k \nabla_{\mathbf{x}} \mathcal{L}(\mathbf{x}^{(k)})$</div>
       <span class="focus-card-tag">HPC · CUDA · Julia / C++</span>
     </div>
-
     <div class="focus-card">
       <div class="focus-card-num">04 ·</div>
       <h3 class="focus-card-title">Quantum Mechanics Formalism</h3>
@@ -651,7 +882,6 @@ footer {
       <div class="focus-card-eq">$i\hbar\,\frac{\partial}{\partial t}|\psi\rangle = \hat{H}|\psi\rangle$</div>
       <span class="focus-card-tag">Fisica Matematica · Fondamenta</span>
     </div>
-
   </div>
 </section>
 
@@ -753,19 +983,14 @@ footer {
   const canvas = document.getElementById('bg-canvas');
   const ctx = canvas.getContext('2d');
   let W, H, t = 0;
-
   function resize(){
     W = canvas.width  = window.innerWidth;
     H = canvas.height = window.innerHeight;
   }
   resize();
   window.addEventListener('resize', resize);
-
-  // Draw a slow Lissajous-inspired field
   function draw(){
     ctx.clearRect(0, 0, W, H);
-
-    // Grid of faint dots
     const spacing = 42;
     const cols = Math.ceil(W/spacing)+1;
     const rows = Math.ceil(H/spacing)+1;
@@ -783,14 +1008,11 @@ footer {
       }
     }
     ctx.globalAlpha = 1;
-
-    // Flowing parametric curves
     const curves = [
       { a:3, b:2, phase:0,    col:'rgba(196,151,61,', ox:W*0.5, oy:H*0.4, r:Math.min(W,H)*0.22 },
       { a:5, b:4, phase:0.8,  col:'rgba(45,111,196,',  ox:W*0.7, oy:H*0.6, r:Math.min(W,H)*0.14 },
       { a:2, b:3, phase:1.5,  col:'rgba(196,151,61,',  ox:W*0.2, oy:H*0.7, r:Math.min(W,H)*0.10 },
     ];
-
     curves.forEach(cv => {
       ctx.beginPath();
       const steps = 600;
@@ -804,7 +1026,6 @@ footer {
       ctx.lineWidth = 0.6;
       ctx.stroke();
     });
-
     t += 0.004;
     requestAnimationFrame(draw);
   }
@@ -832,27 +1053,39 @@ footer {
   }, { threshold: 0.1 });
   els.forEach(el => obs.observe(el));
 })();
-(function mobileMenu() {
-    const toggle = document.getElementById('menu-toggle');
-    const menu = document.getElementById('nav-menu');
-    
-    // Mostra il tasto menu solo su schermi piccoli
-    if (window.innerWidth <= 768) {
-        toggle.style.display = 'block';
-    }
 
-    toggle.addEventListener('click', () => {
-        menu.classList.toggle('mobile-active');
-        toggle.textContent = menu.classList.contains('mobile-active') ? 'CLOSE X' : 'MENU //';
-    });
+// ── HAMBURGER / MOBILE DRAWER ──
+(function(){
+  const btn    = document.getElementById('hamburger');
+  const drawer = document.getElementById('mobile-drawer');
+  const links  = document.querySelectorAll('.drawer-link');
 
-    // Chiudi il menu quando si clicca un link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            menu.classList.remove('mobile-active');
-            toggle.textContent = 'MENU //';
-        });
-    });
+  function openMenu(){
+    btn.classList.add('active');
+    btn.setAttribute('aria-expanded', 'true');
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // blocca scroll sfondo
+  }
+  function closeMenu(){
+    btn.classList.remove('active');
+    btn.setAttribute('aria-expanded', 'false');
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  btn.addEventListener('click', () => {
+    drawer.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  // Chiudi cliccando un link del drawer
+  links.forEach(l => l.addEventListener('click', closeMenu));
+
+  // Chiudi premendo Escape
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') closeMenu();
+  });
 })();
 </script>
 </body>
